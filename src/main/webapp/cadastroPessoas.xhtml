@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="content">
+		<h1 class="jr-page-title">Cadastro Pessoas</h1>
+		<h:form>
+			
+			<p:tabView style="margin-top: 20px">
+
+				<p:tab title="Dados básicos">
+					<p:panelGrid columns="3" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						<h:outputLabel value="Nome:  " for="nome"/>
+						<p:inputText value="#{pessoaController.pessoa.nome}" id="nome" />
+						<p:message for="nome" />
+
+						<h:outputLabel value="CPF:  " for="cpf" />
+						<p:inputMask value="#{pessoaController.pessoa.cpf}"
+							mask="999.999.999-99" validatorMessage="Não é CPF válido."
+							id="cpf" />
+						<p:message for="cpf" />
+
+						<h:outputLabel value="Email:  " for="email" />
+						<p:inputMask value="#{pessoaController.pessoa.email}" id="email"
+							validatorMessage="não é um email válido" />
+						<p:message for="email" />
+
+						<h:outputLabel value="Titulo de Eleitor: " for="te" />
+						<p:inputMask value="#{pessoaController.pessoa.tituloEleitor}"
+							id="te" mask="999999999999"
+							validatorMessage="Não é um titulo eleitoral válido." />
+						<p:message for="te" />
+
+
+					</p:panelGrid>
+
+					<h:commandButton action="#{pessoaController.salvar()}"
+						value="Salvar" />
+
+				</p:tab>
+
+				<p:tab title="Endereços">
+      		aba2
+      		</p:tab>
+
+				<p:tab title="Observações">
+					<p:inputTextarea rows="7" cols="50" />
+				</p:tab>
+
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

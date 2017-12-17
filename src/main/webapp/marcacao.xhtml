@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="content">
+		<h1 class="jr-page-title">Agenda</h1>
+
+
+		<h:form id="formSchedule">
+			<p:schedule value="#{agendaBean.agendaScheduleModel}" id="schedule"
+				style="font-size:25px" widgetVar="myschedule">
+
+				<p:ajax event="eventSelect" listener="#{agendaBean.onEventSelect}"
+					oncomplete="PF('dialogo2').show();"
+					update=":formularioCadastro2:eventoDetalhe2" />
+
+				<p:ajax event="dateSelect" listener="#{agendaBean.quandoNovo}"
+					oncomplete="PF('dialogo').show();"
+					update=":formularioCadastro:eventoDetalhe" />
+				<p:ajax event="eventMove" listener="#{agendaBean.quandoMovido}"
+					update=":formularioCadastro:eventoDetalhe" />
+				<p:ajax event="eventResize"
+					listener="#{agendaBean.quandoRedimensionado}"
+					update=":formularioCadastro:eventoDetalhe" />
+
+			</p:schedule>
+		</h:form>
+
+		<p:dialog closable="true" header="Agenda" draggable="false"
+			modal="true" showEffect="clip" resizable="false" widgetVar="dialogo"
+			height="500" width="500">
+
+			<h:form id="formularioCadastro">
+				<p:outputPanel id="eventoDetalhe">
+					<p:panelGrid columns="2">
+
+						<h:outputLabel value="Paciente:  " />
+						<p:selectOneMenu value="#{agendaBean.pacienteID}">
+							<f:selectItems value="#{agendaBean.pacientes}" var="paciente"
+								itemValue="#{paciente.codigo}" itemLabel="#{paciente.nome}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel value="Data" />
+						<p:inputMask mask="99/99/9999 99:99:99"
+							value="#{agendaBean.consulta.dataConsulta}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm:ss" />
+						</p:inputMask>
+						
+						<p:outputLabel value="Tipo de Consulta" />
+						<p:selectOneMenu value="#{agendaBean.consulta.tipoConsulta}">
+							<f:selectItem itemValue="Primeira Vez" itemLabel="Primeira vez" />
+							<f:selectItem itemValue="Revisão" itemLabel="Revisão" />
+							<f:selectItem itemValue="Tratamento" itemLabel="Tratamento" />
+						
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Observação" />
+						<p:inputTextarea value="#{agendaBean.consulta.observacao}" />
+
+					</p:panelGrid>
+					<p:panelGrid>
+						<p:commandButton oncomplete="PF('dialogo').hide();"
+							action="#{agendaBean.salvar()}" update=":formSchedule:schedule"
+							value="Salvar" />
+					</p:panelGrid>
+
+				</p:outputPanel>
+			</h:form>
+
+		</p:dialog>
+		<p:dialog closable="true" header="Agenda" draggable="false"
+			modal="true" showEffect="clip" resizable="false" widgetVar="dialogo2">
+
+			<h:form id="formularioCadastro2">
+				<p:panel id="eventoDetalhe2">
+					<p:panelGrid columns="1" id="painel2">
+
+
+						<h:outputLabel value="Alterar" />
+
+						<p:inputMask mask="99/99/9999 99:99:99"
+							value="#{agendaBean.consulta.dataConsulta}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm:ss" />
+						</p:inputMask>
+
+						<h:inputHidden value="#{agendaBean.consulta.codigo}" />
+
+					</p:panelGrid>
+					<p:panelGrid columns="2" id="painel3">
+
+						<h:panelGroup>
+
+							<p:commandButton oncomplete="PF('dialogo2').hide();"
+								action="#{agendaBean.salvar()}" update=":formSchedule:schedule"
+								value="Alterar" />
+							<p:commandButton oncomplete="PF('dialogo2').hide();"
+								action="#{agendaBean.excluir()}" update=":formSchedule:schedule"
+								value="Remover" />
+						</h:panelGroup>
+					</p:panelGrid>
+					<h3>Dados Pessoais</h3>
+					<p:panelGrid columns="2" id="painel4">
+
+						<p:outputLabel value="Nome :" />
+						<p:outputLabel value="#{agendaBean.consulta.paciente.nome}" />
+						<p:outputLabel value="Responsável :" />
+						<p:outputLabel value="#{agendaBean.consulta.paciente.responsavel}" />
+						<p:outputLabel value="Tipo de Consulta" />
+						<p:outputLabel value="#{agendaBean.consulta.tipoConsulta}" />
+						
+						<p:outputLabel value="Celular :" />
+						<p:outputLabel value="#{agendaBean.consulta.paciente.celular}" />
+						<p:outputLabel value="Convencional" />
+						<p:outputLabel value="#{agendaBean.consulta.paciente.telefone}" />
+						<p:outputLabel value="Plano :" />
+						<p:outputLabel value="#{agendaBean.consulta.paciente.plano}" />
+						<p:outputLabel value="Carteirinha :" />
+						<p:outputLabel value="#{agendaBean.consulta.paciente.matricula}" />
+						<p:outputLabel value="Observação :" />
+						<p:outputLabel value="#{agendaBean.consulta.observacao}" />
+
+					</p:panelGrid>
+
+				</p:panel>
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/templates/layout.xhtml"> 
+      
+      <ui:define name="content">
+      
+      <h1 class="jr-page-title">Informações de Pacientes</h1>
+		<h:form>
+			
+			<p:tabView style="margin-top: 20px">
+
+				<p:tab title="Dados básicos">
+					<p:panelGrid columns="2" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						<h:outputLabel value="Nome"/>
+						<h:outputLabel value="#{agendaBean.consulta.paciente.nome}"/>						
+						
+						<h:outputLabel value="Email:  " for="email" />
+						<h:outputLabel value="#{agendaBean.consulta.paciente.email}"/>
+						
+						<h:outputLabel value="Telefone:  " for="telefone" />
+						<h:outputLabel value="#{agendaBean.consulta.paciente.telefone}"/>
+						
+						<h:outputLabel value="Celular:  " />
+						<p:outputLabel value="#{pacienteController.paciente.celular}" />
+											
+
+					</p:panelGrid>
+				</p:tab>
+				
+
+				<p:tab title="Endereço">
+				<p:panelGrid columns="2" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						<h:outputLabel value="Bairro:  " />
+						<p:outputLabel value="#{pacienteController.paciente.bairro}" />
+						
+						
+						<h:outputLabel value="Cidade:  " />
+						<p:outputLabel value="#{pacienteController.paciente.cidade}" />
+						
+						
+						<h:outputLabel value="UF:  " />
+						<p:outputLabel value="#{pacienteController.paciente.uf}" />
+						
+						
+						<h:outputLabel value="Logradouro:  " />
+						<p:outputLabel value="#{pacienteController.paciente.logradouro}" />
+						
+						
+						<h:outputLabel value="Número:  " />
+						<p:outputLabel value="#{pacienteController.paciente.numero}" />
+						
+						
+						<h:outputLabel value="Complemento:  " />
+						<p:outputLabel value="#{pacienteController.paciente.complemento}" />
+						
+
+					</p:panelGrid>
+      		
+      		</p:tab>
+
+				<p:tab title="Plano de Saúde">
+					
+					<p:panelGrid columns="2" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						
+						<h:outputLabel value="Plano:  " for="plano"/>
+						<p:outputLabel value="#{pacienteController.paciente.plano}" />
+						
+						
+						
+						<h:outputLabel value="Matricula:  " />
+						<p:outputLabel value="#{pacienteController.paciente.matricula}" />
+											
+						
+						</p:panelGrid>				
+					
+				</p:tab>				
+
+			</p:tabView>
+			
+		</h:form>
+      
+      </ui:define>
+</ui:composition>

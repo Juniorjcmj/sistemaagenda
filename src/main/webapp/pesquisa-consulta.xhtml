@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/templates/layout.xhtml"> 
+      
+      <ui:define name="content">
+      <h1 class="jr-page-title">Pesquisa Consulta</h1>
+       <h:form id="frm">	
+      	
+      	<p:dataTable value="#{agendaBean.consultas}" var="consulta"
+      	      	style="margin-top:20px"      	      	
+      	      	reflow="true"
+      	      	paginator="true"
+      	      	paginatorPosition="bottom"
+      	      	rows="20"
+      	      	rowsPerPageTemplate="20,50,100"
+      	      	>
+      	      	
+      	      	<p:column headerText="Código" filterBy="#{consulta.codigo}" filterMatchMode="contains" >
+      			<h:outputText value="#{consulta.codigo}" />      			
+      		</p:column>
+      	      	
+      		<p:column headerText="Data" filterBy="#{consulta.dataConsulta}" filterMatchMode="contains">
+      			<h:outputText value="#{consulta.dataConsulta}" >
+      				<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
+      			</h:outputText>      			
+      		</p:column>
+      		
+      		<p:column headerText="Paciente" filterBy="#{consulta.paciente.nome}" filterMatchMode="contains" >
+      			<h:outputText value="#{consulta.paciente.nome}" />      			
+      		</p:column>
+      		
+      		<p:column headerText="Matrícula" filterBy="#{consulta.paciente.matricula}" filterMatchMode="contains" >
+      		<h:outputText value="#{consulta.paciente.matricula}" />      					
+      		</p:column> 
+      		      		
+      		<p:column headerText="Telefone" filterBy="#{consulta.paciente.celular}" filterMatchMode="contains" >
+      			<h:outputText value="#{consulta.paciente.telefone}" />     	
+      			<h:outputText value="#{consulta.paciente.celular}" />		
+      		</p:column>
+      		
+      		<p:column>
+      				<p:commandLink action="#{agendaBean.alterar}"  style="margin-left:20px" title="Editar" >
+      						<i class="fa fa-pencil-square-o"></i>
+      					<f:setPropertyActionListener value="#{consulta}" target="#{agendaBean.consulta}"/>
+      					<f:setPropertyActionListener value="/alterarConsulta" target="#{agendaBean.destinoSalvar}"></f:setPropertyActionListener>       				
+      				</p:commandLink>		
+      				
+      				<h:commandLink action="#{agendaBean.excluir()}" style="margin-left:20px" title="Excluir"><i class="fa fa-times"></i>
+      					<f:setPropertyActionListener value="#{consulta}" target="#{agendaBean.consulta}"/>      				
+      				</h:commandLink>
+      		</p:column>		
+      		
+      	
+      	</p:dataTable>
+      	</h:form>
+      	
+      	
+      
+     
+      
+      
+      </ui:define>
+</ui:composition>

@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+body{
+	margin: 0;
+	font-size: 13px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.jr-menu{
+	font-size: 1.5em;
+	
+}
+.jr-menu > ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	
+}
+
+.jr-menu > ul a{
+	display: block;
+	padding: 10px 15px;
+	
+	text-decoration: none;
+	font-weight: 500;
+	color: #373737;
+}
+.jr-menu > ul i{
+	margin-right: 6px
+}
+.jr-menu > ul a:hover,.jr-menu > ul a:focus{
+	
+	background-color: #dfdfdf;
+}
+.jr-menu > ul .is-selected{
+	background-color: #f3f3f3;
+	border-left: 3px solid #FF0000;
+}
+.jr-menu > ul .is-selected a{
+	margin-left:-3px;
+	color: 	#FF6347;
+	
+	}
+	
+	/* TABLEVIEW*/
+	
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a{
+	color:red;
+}
+	
+@media (max-width:640px){
+	.ui-tabs.ui-tabs-top > .ui-tabs-nav li {
+			width: 100%;
+	}
+}
+
+/*PANELGRID*/		
+.ui-panelgrid.panelgrid-noborder .ui-grid-responsive{
+	border: none;
+}
+@media(max-width:640px){
+	.ui-panelgrid.panelgrid-noborder .ui-grid-responsive .ui-grid-row{
+			border: none;
+	}
+}
+
+.fc-event .fc-content{
+	background-color: blak;
+}
+.ui-dialog {
+	width: 500px;
+}	
+	
+	
+	
+	

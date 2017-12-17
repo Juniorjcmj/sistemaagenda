@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/templates/layout.xhtml"> 
+      
+      <ui:define name="content">
+      
+      <h1 class="jr-page-title">Cadastro de Pacientes</h1>
+		<h:form>
+			
+			<p:tabView style="margin-top: 20px">
+
+				<p:tab title="Dados básicos">
+					<p:panelGrid columns="3" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						<h:outputLabel value="Nome:  " for="nome"/>
+						<p:inputText value="#{pacienteController.paciente.nome}"
+									 required="true"
+									 requiredMessage="Nome não pode ficar vazio" id="nome"/>
+						<p:message for="nome" />
+						<h:outputLabel value="Responsável:  " for="resp"/>
+						<p:inputText value="#{pacienteController.paciente.responsavel}"/>
+						<p:outputLabel/>						
+												
+						<h:outputLabel value="Email:  " for="email" />
+						<p:inputMask value="#{pacienteController.paciente.email}" id="email"
+							validatorMessage="não é um email válido" />
+						<p:message for="email" />
+						
+						<h:outputLabel value="Telefone:  " for="telefone" />
+						<p:inputText value="#{pacienteController.paciente.telefone}" 
+									 required="true" 
+									 requiredMessage="Telefone é obrigatório" id="telefone"/>
+						<p:message for="telefone" />
+						
+						<h:outputLabel value="Celular:  " />
+						<p:inputText value="#{pacienteController.paciente.celular}" />
+						<h:outputText />
+						
+						<h:inputHidden value="#{pacienteController.paciente.codigo}"/>			
+
+					</p:panelGrid>
+				</p:tab>
+				
+
+				<p:tab title="Endereço">
+				<p:panelGrid columns="3" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						<h:outputLabel value="Bairro:  " />
+						<p:inputText value="#{pacienteController.paciente.bairro}" />
+						<h:outputText />
+						
+						<h:outputLabel value="Cidade:  " />
+						<p:inputText value="#{pacienteController.paciente.cidade}" />
+						<h:outputText />
+						
+						<h:outputLabel value="UF:  " />
+						<p:inputText value="#{pacienteController.paciente.uf}" />
+						<h:outputText />
+						
+						<h:outputLabel value="Logradouro:  " />
+						<p:inputText value="#{pacienteController.paciente.logradouro}" />
+						<h:outputText />
+						
+						<h:outputLabel value="Número:  " />
+						<p:inputText value="#{pacienteController.paciente.numero}" />
+						<h:outputText />
+						
+						<h:outputLabel value="Complemento:  " />
+						<p:inputText value="#{pacienteController.paciente.complemento}" />
+						<h:outputText />
+
+					</p:panelGrid>
+      		
+      		</p:tab>
+
+				<p:tab title="Plano de Saúde">
+					
+					<p:panelGrid columns="3" styleClass="panelgrid-noborder"
+						layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+						
+						<h:outputLabel value="Plano:  " for="plano"/>
+						<p:selectOneMenu id="plano" value="#{pacienteController.paciente.plano}"
+										 effect="fold" editable="true" >
+								<f:selectItem itemLabel="Selecione" itemValue=""/>
+								<f:selectItems value="#{pacienteController.planos}"/>
+						
+						</p:selectOneMenu>
+						<h:outputText />
+						
+						
+						
+						<h:outputLabel value="Matricula:  " />
+						<p:inputText value="#{pacienteController.paciente.matricula}" />
+						<h:outputText />						
+						</p:panelGrid>				
+					
+				</p:tab>				
+
+			</p:tabView>
+			<h:commandButton action="#{pacienteController.salvar()}"
+						value="Salvar" />
+		</h:form>
+      
+      </ui:define>
+</ui:composition>

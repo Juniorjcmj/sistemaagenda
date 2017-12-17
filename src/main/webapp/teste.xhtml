@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/templates/layout.xhtml"> 
+      
+      <ui:define name="content">
+      <h1 class="jr-page-title">Teste Consulta</h1>
+      
+      
+      	<h:form id="frm">
+      	<p:panelGrid columns="2" id="painel1">
+      	<p:outputLabel value="Digite o nome"/>
+      	<p:inputText value="#{pacienteController.nome}"/>
+      	
+      	</p:panelGrid>
+      	<p:commandButton value="Buscar" action="#{pacienteController.consultaPorNome()}" update=":frm:tabela"/>
+      	
+      	<p:dataTable value="#{pacienteController.findAllporNome}" var="paciente" id="tabela">
+      	
+      	<p:column headerText="Nome" >
+      			<h:outputText value="#{paciente.nome}" />      				      			
+      	</p:column>
+      	
+      	
+      	</p:dataTable>
+    	
+    	</h:form>
+    	
+      
+      </ui:define>
+</ui:composition>

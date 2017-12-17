@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title><ui:insert name="titulo">Java Rio</ui:insert></title>
+
+	<f:facet name="first">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+		
+	<h:outputStylesheet library="css" name="layout.css" />
+	<h:outputStylesheet library="css" name="components.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+
+	<h:outputScript target="body" library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript target="body" library="js" name="app.js" />
+
+</h:head>
+
+<h:body>
+		<p:growl id="message"/>
+	<header class="jr-topbar"> <a href="#"
+		class="jr-toggle js-toggle"><i class="fa fa-bars" /></a> </header>
+
+	<aside class="jr-sidebar js-sidebar">
+	
+		 <nav class="jr-menu">
+		 <h:form>
+	 
+			<p:panelMenu style="width:200px">
+				
+				<p:submenu label="Pacientes">
+					<p:menuitem value="Novo" outcome="/cadastro-pacientes" icon="ui-icon-plus"/>
+					<p:menuitem value="Buscar" outcome="/pesquisa-pessoas" icon="ui-icon-search"/>
+				</p:submenu>
+				
+				<p:submenu label="Consulta">
+					
+					<p:menuitem value="Agenda" outcome="/marcacao" icon="ui-icon-plus"/>
+					<p:menuitem value="Buscar" outcome="/pesquisa-consulta"  icon="ui-icon-search"/>
+				</p:submenu>
+				
+				<p:submenu label="Relatórios">
+					<p:menuitem value="Financeiro" icon="ui-icon-cart"/>
+					<p:menuitem value="Atendimentos"  icon="ui-icon-calculator"/>
+				</p:submenu>
+				
+				<p:submenu label="Configurações">
+					<p:menuitem value="Usuário" icon="ui-icon-wrench"/>
+					<p:menuitem value="Logout"  icon="ui-icon-power"/>
+				</p:submenu>
+				
+			</p:panelMenu>
+			</h:form>
+			 <h:graphicImage library="imagens" name="java.png" width="200px" style="margin-top:20px"/>
+		</nav>
+	 </aside>
+	 
+	<section class="jr-content js-content">
+	<ui:insert name="content"/>
+
+	</section>
+
+</h:body>
+</html>

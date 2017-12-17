@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JBoss, Home of Professional Open Source Copyright 2013, Red Hat, Inc. 
+	e / ou suas afiliadas e contribuidores individuais pela tag @authors. Vejo 
+	o copyright.txt na distribuição para uma listagem completa de contribuidores 
+	individuais. Licenciado sob a Licença Apache, Versão 2.0 (a "Licença"); talvez 
+	você não use este arquivo, exceto em conformidade com a Licença. Você pode 
+	obter uma cópia da Licença em http://www.apache.org/licenses/LICENSE-2.0 
+	A menos que seja necessário por lei aplicável ou acordado por escrito, software 
+	distribuído sob o A licença é distribuída numa base "COMO ESTÁ", SEM GARANTIAS 
+	OU CONDIÇÕES DE QUALQUER TIPO, expressa ou implícita. Consulte a Licença 
+	para o específico idioma que rege as permissões e limitações sob a Licença. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>sistema01</groupId>
+	<artifactId>sistema01</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>WildFly Quickstarts: sistema01</name>
+	<description>A starter Java EE 7 webapp project for use on JBoss WildFly / WildFly, generated from the jboss-javaee6-webapp archetype</description>
+
+	<url>http://wildfly.org</url>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<distribution>repo</distribution>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+
+	<properties>
+		<!-- Explicitamente declarar a codificação de origem elimina o seguinte 
+			mensagem: -->
+		<!-- [WARNING] Usando codificação de plataforma (UTF-8 na verdade) para 
+			copiar filtrada recursos, ou seja, construir depende da plataforma! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- JBoss dependency versions -->
+		<version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+
+		<!-- Defina a versão das listas de materiais JBoss que queremos importar 
+			para especificar pilhas testadas. -->
+		<version.jboss.bom>8.2.1.Final</version.jboss.bom>
+
+		<!-- other plugin versions -->
+		<version.compiler.plugin>3.1</version.compiler.plugin>
+		<version.surefire.plugin>2.16</version.surefire.plugin>
+		<version.war.plugin>2.5</version.war.plugin>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
+	</properties>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- JBoss distribui um conjunto completo de Java EE 7 API incluindo um 
+				Bill de Materiais (BOM). Uma lista técnica especifica as versões de uma "pilha" 
+				(ou uma coleção) de artefatos. Usamos isso aqui para que possamos sempre 
+				obter as versões corretas de artefatos. Aqui, usamos a pilha jboss-javaee-7.0-with-tools 
+				(você pode Leia isso como a pilha JBoss das API Java EE 7, com algumas ferramentas 
+				extras para seu projeto, como o Arquillian para testes) e o jboss-javaee-7.0 
+				com hibernação pilha você pode ler isso como a pilha JBoss das API Java EE 
+				7, com extras da família de projetos da Hibernate) -->
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>jboss-javaee-7.0-with-tools</artifactId>
+				<version>${version.jboss.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>jboss-javaee-7.0-with-hibernate</artifactId>
+				<version>${version.jboss.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- Primeiro declare as APIs em que dependemos e precisamos de compilação. 
+			Todos deles são fornecidos por JBoss WildFly -->
+
+		<!-- Importe a API CDI, usamos o escopo fornecido à medida que a API está 
+			incluída JBoss WildFly -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Importar a API de Anotações Comuns (JSR-250), usamos o escopo fornecido 
+			como a API está incluída no JBoss WildFly -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Importe a API JAX-RS, usamos o escopo fornecido à medida que a API 
+			está incluída em JBoss WildFly -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Importar a API JPA, usamos o escopo fornecido à medida que a API está 
+			incluída no JBoss WildFly -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Importe a API EJB, usamos o escopo fornecido à medida que a API está 
+			incluída no JBoss WildFly -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- JSR-303 (Bean Validation) Implementation -->
+		<!-- Fornece restrições portáteis, como @Email -->
+		<!-- O Hibernate Validator é enviado no JBoss WildFly -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Importar a API do JSF, usamos o escopo fornecido à medida que a API 
+			está incluída no JBoss WildFly -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.faces</groupId>
+			<artifactId>jboss-jsf-api_2.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Agora declaramos quaisquer ferramentas necessárias -->
+
+		<!-- Processador de anotação para gerar as classes de metamodelo JPA 2.0 
+			para Tipos de perguntas de critérios -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Processador de anotação que levanta erros de compilação sempre que 
+			forçar as anotações são usadas incorretamente.. -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator-annotation-processor</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Necessário para testes de corrida (você também pode usar TestNG) -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Opcional, mas altamente recomendado -->
+		<!-- Arquillian permite que você teste o código da empresa, como EJBs e 
+			Transactional (JTA) JPA de JUnit / TestNG -->
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>1.0.10</version>
+			<scope>compile</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<!-- Maven anexará a versão ao nome final (qual é o nome dado à guerra 
+			gerada, e, portanto, a raiz do contexto) -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<!-- Java EE 7 não requer web.xml, Maven precisa recuperar o atraso! -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<!-- O plugin WildFly implanta sua guerra para um contêiner local WildFly -->
+			<!-- Para usar, execute: pacote mvn wildfly: deploy -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>${version.wildfly.maven.plugin}</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<!-- O perfil padrão ignora todos os testes, embora você possa sintonizar 
+				para executar apenas testes de unidade com base em um padrão personalizado -->
+			<!-- Perfis separados são fornecidos para executar todos os testes, incluindo 
+				Arquillian testes que executam no recipiente especificado -->
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${version.surefire.plugin}</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+
+			<!-- Um perfil de teste opcional Arquillian que executa testes em seu 
+				Instância do WildFly -> <! - Este perfil iniciará uma nova instância do WildFly 
+				e executará o teste, desligando quando terminar -->
+			<!-- Executar com: mvn clean test -Parq-wildfly-managed -->
+			<id>arq-wildfly-managed</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- Um perfil de teste opcional Arquillian que executa testes em um controle 
+				remoto Instância WildFly -->
+			<!-- Run with: mvn clean test -Parq-wildfly-remote -->
+			<id>arq-wildfly-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-remote</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>${version.war.plugin}</version>
+						<configuration>
+							<outputDirectory>deployments</outputDirectory>
+							<warName>ROOT</warName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+	
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>	
+	</repositories>
+</project>

@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/templates/layout.xhtml"> 
+      
+      <ui:define name="content">
+      <h1 class="jr-page-title">Alterar Consulta</h1>
+      
+      
+      <h:form id="formularioCadastro">
+				<p:outputPanel id="eventoDetalhe">
+					<p:panelGrid columns="2">
+						
+
+						<h:outputLabel value="Data" />
+						<p:inputMask mask="99/99/9999 99:99:99"
+							value="#{agendaBean.consulta.dataConsulta}">
+							<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm:ss" />
+						</p:inputMask>
+						
+						<p:outputLabel value="Tipo de Consulta" />
+						<p:selectOneMenu value="#{agendaBean.consulta.tipoConsulta}">
+							<f:selectItem itemValue="Primeira Vez" itemLabel="Primeira vez" />
+							<f:selectItem itemValue="Revisão" itemLabel="Revisão" />
+							<f:selectItem itemValue="Tratamento" itemLabel="Tratamento" />
+						
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Observação" />
+						<p:inputTextarea value="#{agendaBean.consulta.observacao}" />
+						
+						<h:inputHidden value="#{agendaBean.consulta.codigo}"/>
+
+					</p:panelGrid>
+					<p:panelGrid>
+						<p:commandButton 
+							action="#{agendaBean.salvar()}" 
+							value="Salvar" />
+					</p:panelGrid>
+
+				</p:outputPanel>
+			</h:form>
+      
+      </ui:define>
+</ui:composition>

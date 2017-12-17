@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/templates/layout.xhtml"> 
+      
+      <ui:define name="content">
+      <h1 class="jr-page-title">Teste Consulta</h1>
+      
+      
+      	<h:form id="frm">
+      	<p:panelGrid columns="2" id="painel1">
+      	<p:outputLabel value="Digite o nome"/>
+      	<p:inputText value="#{pacienteController.nome}"/>
+      	
+      	</p:panelGrid>
+      	<p:commandButton value="Buscar" action="#{pacienteController.consultaPorNome()}" update=":frm:tabela"/>
+      	
+      	      	
+      	<p:dataTable value="#{pacienteController.findAllporNome}" 
+      				 var="paciente"
+      	      		 style="margin-top:20px"      	      	
+      	      	     reflow="true"
+      	      	     id="tabela"
+      	      	     paginator="true"
+      	      	     rows="20"
+      	      	     rowsPerPageTemplate="20,50,100"
+      	      	     paginatorPosition="bottom" 
+      	      	         	      	     
+      	      	>
+      	    <p:column headerText="Código">
+      			<h:outputText value="#{paciente.codigo}" />      			
+      		</p:column>  	
+      		<p:column headerText="Nome">
+      			<h:outputText value="#{paciente.nome}" />      			
+      		</p:column>
+      		      		
+      		<p:column headerText="Email" >
+      			<h:outputText value="#{paciente.email}" />      			
+      		</p:column>
+      		<p:column headerText="Telefone" >
+      			<h:outputText value="#{paciente.telefone}" />      			
+      		</p:column>
+      		<p:column headerText="Celular" >
+      			<h:outputText value="#{paciente.celular}" />      			
+      		</p:column>
+      		<p:column headerText="Responsável" >
+      		<h:outputText value="#{paciente.responsavel}" />      					
+      		</p:column>
+      		<p:column headerText="Plano" >
+      		<h:outputText value="#{paciente.plano}" />      					
+      		</p:column>
+      		<p:column headerText="Matrícula" >
+      		<h:outputText value="#{paciente.matricula}" />      					
+      		</p:column>
+      		<p:column>
+      				<h:commandLink actionListener="#{pacienteController.update()}" style="margin-left:20px" title="Editar" >
+      						<i class="fa fa-pencil-square-o"></i>
+      					<f:setPropertyActionListener value="#{paciente}" target="#{pacienteController.paciente}"/> 
+      					<f:setPropertyActionListener target="#{pacienteController.destinoSalvar}"
+                                                     value="/cadastro-pacientes" />      				
+      				</h:commandLink>		
+      				
+      				<p:commandLink action="#{pacienteController.excluir}" 
+      							   style="margin-left:20px" 
+      			                   title="Excluir"
+      			                   update=":frm:tabela"
+      			                   onclick="if (!confirm('Confirma a exclusão do Paciente #{paciente.nome}?'))
+                                               return false;">
+      				
+      				<i class="fa fa-times"></i>
+      					<f:setPropertyActionListener value="#{paciente}" target="#{pacienteController.paciente}"/>      				
+      				</p:commandLink>
+      		</p:column>	      		
+      	
+      	</p:dataTable>   	
+    	</h:form>
+    	
+      
+      </ui:define>
+</ui:composition>
